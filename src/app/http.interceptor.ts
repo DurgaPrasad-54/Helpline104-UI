@@ -72,7 +72,7 @@ export class InterceptedHttp extends Http {
     if (this.networkCheck()) {
       this.showLoader();
       return super
-        .get(URL, this.getRequestOptionArgs(options))
+        .get(URL, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -99,7 +99,7 @@ export class InterceptedHttp extends Http {
     if (this.networkCheck()) {
       this.showLoader();
       return super
-        .post(URL, body, this.getRequestOptionArgs(options))
+        .post(URL, body, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -125,7 +125,7 @@ export class InterceptedHttp extends Http {
     // url = this.updateUrl(url);
     if (this.networkCheck()) {
       return super
-        .put(url, body, this.getRequestOptionArgs(options))
+        .put(url, body, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -147,7 +147,7 @@ export class InterceptedHttp extends Http {
     // url = this.updateUrl(url);
     if (this.networkCheck()) {
       return super
-        .delete(url, this.getRequestOptionArgs(options))
+        .delete(url, this.getRequestOptionArgs(options, url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -183,7 +183,8 @@ export class InterceptedHttp extends Http {
   }
 
   private getRequestOptionArgs(
-    options?: RequestOptionsArgs
+    options?: RequestOptionsArgs,
+    url?: string
   ): RequestOptionsArgs {
     if (options == null) {
       options = new RequestOptions();
@@ -191,10 +192,24 @@ export class InterceptedHttp extends Http {
     if (options.headers == null) {
       options.headers = new Headers();
     }
-    options.headers.append("Content-Type", "application/json");
-    options.headers.append("Access-Control-Allow-Origin", "*");
-    options.headers.append("Authorization", this.authService.getToken());
-    return options;
+        // Determine whether we should skip attaching Authorization header
+        const skipAuth = url && url.indexOf('platform-feedback') !== -1;
+
+        let authToken: any;
+        if (!skipAuth && sessionStorage.getItem('authToken')) {
+            authToken = sessionStorage.getItem('authToken');
+        }
+
+        options.headers.append('Content-Type', 'application/json');
+        options.headers.append('Access-Control-Allow-Origin', '*');
+
+        // Only append Authorization if not skipping
+        if (!skipAuth && authToken) {
+            options.headers.append('Authorization', authToken);
+        }
+
+        // options.headers.append('Jwttoken', Jwt_token);
+        return options;
   }
   private onEnd(): void {
     this.hideLoader();
