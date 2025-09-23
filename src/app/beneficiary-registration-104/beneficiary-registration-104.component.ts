@@ -841,6 +841,7 @@ export class BeneficiaryRegistration104Component implements OnInit {
     this.registerObj.registeredServiceID = this.registeredServiceID;
     this.registerObj.maritalStatusID = this.maritalStatusID;
     this.registerObj.genderID = this.gender;
+    this.registerObj.genderName = this.getGenderNameById(this.gender);
     this.registerObj.vanID = this.getCommonData.current_serviceID;
     this.registerObj.i_bendemographics = {};
     this.registerObj.i_bendemographics.educationID =
@@ -932,6 +933,16 @@ export class BeneficiaryRegistration104Component implements OnInit {
     );
   }
 
+
+   getGenderNameById(value) {
+    if (this.commonData.m_genders != undefined) {
+      const gender = this.commonData.m_genders.find(function (obj) {
+        return obj.genderID == value;
+      });
+      return gender ? gender.genderName : null;
+    }
+    return null;
+  }
   passBenRegHistoryData(searchedBenData: any) {
     this.updateCallerBeneficiaryID(
       searchedBenData.beneficiaryRegID,
@@ -2137,7 +2148,7 @@ export class BeneficiaryRegistration104Component implements OnInit {
                       (response) => {
                         //	console.log(response, 'SMS Sent');
                         if (response) {
-                          setTimeout(this.messageAlertHAO(), 1);
+                          setTimeout(() => this.messageAlertHAO(), 1);
                           this.alertMessage.alert(
                             this.currentLanguageSet.smsSent,
                             "success"
