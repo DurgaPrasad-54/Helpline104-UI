@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.iemr.104ui</groupId>
   <artifactId>104-ui</artifactId>
-  <version>3.1.0</version>
+  <version>3.8.0</version>
   <name>104-UI</name>
   <packaging>war</packaging>
   <profiles>
