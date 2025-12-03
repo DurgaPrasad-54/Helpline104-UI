@@ -1,0 +1,132 @@
+<div class="fb-wrap">
+  <div
+    class="fb-card"
+    role="dialog"
+    aria-labelledby="fb-title"
+    aria-describedby="fb-desc"
+  >
+    <h2 id="fb-title" class="fb-title">
+      {{
+        isLoggedIn
+          ? (current_language_set?.platform_feedback?.weValueYourFeedback ||
+            "We value your feedback")
+          : (current_language_set?.platform_feedback?.youHaveLoggedOut ||
+            "You have logged out of the session")
+      }}
+    </h2>
+
+    <p id="fb-desc" class="fb-subtitle">
+      {{
+        (current_language_set?.platform_feedback?.subtitle) ||
+          "We’d love to hear about your experience (optional)"
+      }}
+    </p>
+
+    <!-- Stars with labels -->
+    <div class="fb-stars" role="radiogroup" aria-label="Rate your experience">
+      <button
+        *ngFor="let s of stars; index as i"
+        type="button"
+        class="fb-star"
+        [class.fb-star--active]="s <= form.value.rating"
+        (click)="setRating(s)"
+        [attr.aria-checked]="s === form.value.rating"
+        role="radio"
+        [attr.aria-label]="starLabels[s - 1]"
+      >
+        <span class="fb-star-icon">★</span>
+        <span class="fb-star-text">{{ starLabels[s - 1] }}</span>
+      </button>
+    </div>
+
+    <hr class="fb-sep" />
+
+    <!-- Category (only if loaded) -->
+    <div class="fb-row" *ngIf="showCategory">
+      <label class="fb-label" for="fb-cat">{{
+        (current_language_set?.platform_feedback?.category) || "Category"
+      }}</label>
+      <select
+        id="fb-cat"
+        class="fb-select"
+        [formControl]="form.controls['categorySlug']"
+        aria-placeholder="Select a category"
+        aria-label="Select a category"
+      >
+        <option value="" disabled>
+          {{
+            (current_language_set?.platform_feedback?.selectCategory) ||
+              "Select a category"
+          }}
+        </option>
+        <option *ngFor="let c of categories" [value]="c.slug">
+          {{ c.label }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Comment -->
+    <div class="fb-row">
+      <textarea
+        class="fb-textarea"
+        placeholder="How we can make it better…"
+        [formControl]="form.controls['comment']"
+        maxlength="2000"
+        aria-label="Tell us more (optional)"
+        spellcheck="false"
+      ></textarea>
+      <div class="fb-hint">{{ (form.value.comment && form.value.comment.length) || 0 }} / 2000</div>
+    </div>
+
+    <!-- Anonymous / Identified consent -->
+    <div class="fb-row fb-consent">
+      <ng-container *ngIf="isLoggedIn; else loggedOutText">
+        <label class="fb-checkbox">
+          <input
+            type="checkbox"
+            [checked]="form.controls['isAnonymous'].value"
+            (change)="toggleAnonymous($event)"
+            aria-label="Submit anonymously"
+          />
+          <span class="fb-checkbox-label">
+            {{
+              (current_language_set?.platform_feedback?.loggedInConsent) ||
+                "Submit anonymously (if unchecked, we will store your user id for follow-up)"
+            }}
+          </span>
+        </label>
+      </ng-container>
+
+      <ng-template #loggedOutText>
+        <div class="fb-logged-out-note">
+          {{
+            (current_language_set?.platform_feedback?.anonymousInfo) ||
+              "You are not logged in, this feedback will be submitted anonymously."
+          }}
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="fb-actions">
+      <button
+        class="fb-btn"
+        [disabled]="submitting || formInvalidForNow()"
+        (click)="submit()"
+      >
+        {{ (current_language_set?.platform_feedback?.okay) || "Okay" }}
+      </button>
+    </div>
+
+    <div class="fb-foot" *ngIf="error">
+      <span class="fb-error">{{ error }}</span>
+    </div>
+    <div class="fb-foot" *ngIf="successId">
+      <span class="fb-success">
+        {{
+          (current_language_set?.platform_feedback?.thankYou) ||
+            "Thank you, your feedback is valuable to us!"
+        }}
+      </span>
+    </div>
+  </div>
+</div>

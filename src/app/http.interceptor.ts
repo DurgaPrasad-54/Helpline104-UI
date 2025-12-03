@@ -72,7 +72,7 @@ export class InterceptedHttp extends Http {
     if (this.networkCheck()) {
       this.showLoader();
       return super
-        .get(URL, this.getRequestOptionArgs(options))
+        .get(URL, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -99,7 +99,7 @@ export class InterceptedHttp extends Http {
     if (this.networkCheck()) {
       this.showLoader();
       return super
-        .post(URL, body, this.getRequestOptionArgs(options))
+        .post(URL, body, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -125,7 +125,7 @@ export class InterceptedHttp extends Http {
     // url = this.updateUrl(url);
     if (this.networkCheck()) {
       return super
-        .put(url, body, this.getRequestOptionArgs(options))
+        .put(url, body, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -147,7 +147,7 @@ export class InterceptedHttp extends Http {
     // url = this.updateUrl(url);
     if (this.networkCheck()) {
       return super
-        .delete(url, this.getRequestOptionArgs(options))
+        .delete(url, this.getRequestOptionArgs(options, url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -183,7 +183,8 @@ export class InterceptedHttp extends Http {
   }
 
   private getRequestOptionArgs(
-    options?: RequestOptionsArgs
+    options?: RequestOptionsArgs,
+    url?: string
   ): RequestOptionsArgs {
     if (options == null) {
       options = new RequestOptions();
