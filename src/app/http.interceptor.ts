@@ -192,24 +192,9 @@ export class InterceptedHttp extends Http {
     if (options.headers == null) {
       options.headers = new Headers();
     }
-        // Determine whether we should skip attaching Authorization header
-        const skipAuth = url && url.indexOf('platform-feedback') !== -1;
-
-        let authToken: any;
-        if (!skipAuth && sessionStorage.getItem('authToken')) {
-            authToken = sessionStorage.getItem('authToken');
-        }
-
-        options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Access-Control-Allow-Origin', '*');
-
-        // Only append Authorization if not skipping
-        if (!skipAuth && authToken) {
-            options.headers.append('Authorization', authToken);
-        }
-
-        // options.headers.append('Jwttoken', Jwt_token);
-        return options;
+    options.headers.append("Content-Type", "application/json");
+    options.headers.append("Authorization", this.authService.getToken());
+    return options;
   }
   private onEnd(): void {
     this.hideLoader();

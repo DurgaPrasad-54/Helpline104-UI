@@ -35,7 +35,7 @@ import { AuthService } from '../authentication/auth.service';
 export class ReportService {
   headers = new Headers(
     {'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Origin': '*',
     'Authorization': this.authService.getToken()
   }
    );

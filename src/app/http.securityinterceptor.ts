@@ -170,7 +170,7 @@ export class SecurityInterceptedHttp extends Http {
         console.error("authTkn", authTkn)
 
         options.headers.append('Content-Type', 'application/json');
-        options.headers.append('Access-Control-Allow-Origin', '*');
+        // options.headers.append('Access-Control-Allow-Origin', '*');
         options.headers.append('Authorization', authTkn);
         // options.headers.append('Jwttoken', Jwt_token);
    
