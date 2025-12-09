@@ -42,12 +42,16 @@ import { AuthService } from "./services/authentication/auth.service";
 import { ConfirmationDialogsService } from "./services/dialog/confirmation.service";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
+import { SetLanguageComponent } from 'app/set-language.component';
+import { HttpServices } from 'app/services/http-services/http_services.service';
+
 
 @Injectable()
 export class InterceptedHttp extends Http {
   onlineFlag: boolean = true;
   count = 0;
   dologout: any = false;
+  assignSelectedLanguageValue: any;
 
   constructor(
     backend: ConnectionBackend,
@@ -56,9 +60,20 @@ export class InterceptedHttp extends Http {
     private router: Router,
     private authService: AuthService,
     private message: ConfirmationDialogsService,
+    private httpServices: HttpServices
   ) {
     super(backend, defaultOptions);
   }
+
+  assignSelectedLanguage() {
+        const getLanguageJson = new SetLanguageComponent(this.httpServices);
+        getLanguageJson.setLanguage();
+        this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
+        }
+        ngDoCheck() {
+        this.assignSelectedLanguage();
+        }
+
   get(url: string, options?: RequestOptionsArgs): Observable<Response> {
     // url = this.updateUrl(url);
     let URL = this.updateURL(url);
@@ -227,7 +242,7 @@ export class InterceptedHttp extends Http {
   private onError(error: any) {
     this.hideLoader();
     if (error.status === 401 || error.status === 403) {
-        this.message.alert('Your session has expired. Please login again.', 'error');
+        this.message.alert(this.assignSelectedLanguageValue.sessionExpiry, 'error');
         this.authService.removeToken();
         sessionStorage.clear();
         this.router.navigate(['']);
