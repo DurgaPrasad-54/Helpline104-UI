@@ -64,19 +64,14 @@ export class InterceptedHttp extends Http {
   ) {
     super(backend, defaultOptions);
   }
-
-  ngOnInit() {
-    this.assignSelectedLanguage();
-    }
-
   assignSelectedLanguage() {
-        const getLanguageJson = new SetLanguageComponent(this.httpServices);
-        getLanguageJson.setLanguage();
-        this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
-        }
-        ngDoCheck() {
-        this.assignSelectedLanguage();
-        }
+    const getLanguageJson = new SetLanguageComponent(this.httpServices);
+    getLanguageJson.setLanguage();
+    this.assignSelectedLanguageValue = getLanguageJson.currentLanguageObject;
+  }
+  ngDoCheck() {
+    this.assignSelectedLanguage();
+  }
 
   get(url: string, options?: RequestOptionsArgs): Observable<Response> {
     // url = this.updateUrl(url);
