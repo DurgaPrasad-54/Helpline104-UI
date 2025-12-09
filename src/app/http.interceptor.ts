@@ -65,6 +65,10 @@ export class InterceptedHttp extends Http {
     super(backend, defaultOptions);
   }
 
+  ngOnInit() {
+    this.assignSelectedLanguage();
+    }
+
   assignSelectedLanguage() {
         const getLanguageJson = new SetLanguageComponent(this.httpServices);
         getLanguageJson.setLanguage();
