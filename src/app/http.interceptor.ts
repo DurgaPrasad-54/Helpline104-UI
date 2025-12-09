@@ -30,28 +30,24 @@ import { Injectable } from "@angular/core";
 import {
   ConnectionBackend,
   RequestOptions,
-  Request,
   RequestOptionsArgs,
   Response,
   Http,
   Headers,
 } from "@angular/http";
 import { BehaviorSubject, Observable } from "rxjs/Rx";
-import { environment } from "../environments/environment";
 import { LoaderService } from "./services/common/loader.service";
-import { ActivatedRoute, Router, Params } from "@angular/router";
+import { Router } from "@angular/router";
 import { AuthService } from "./services/authentication/auth.service";
 import { ConfirmationDialogsService } from "./services/dialog/confirmation.service";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/throw";
-import { SocketService } from "./services/socketService/socket.service";
-import { sessionStorageService } from "./services/sessionStorageService/session-storage.service";
 
 @Injectable()
 export class InterceptedHttp extends Http {
   onlineFlag: boolean = true;
   count = 0;
-  dologout: any;
+  dologout: any = false;
 
   constructor(
     backend: ConnectionBackend,
@@ -60,8 +56,7 @@ export class InterceptedHttp extends Http {
     private router: Router,
     private authService: AuthService,
     private message: ConfirmationDialogsService,
-    private socketService: SocketService,
-    private sessionstorage:sessionStorageService,
+
   ) {
     super(backend, defaultOptions);
   }
@@ -232,6 +227,13 @@ export class InterceptedHttp extends Http {
   }
   private onError(error: any) {
     this.hideLoader();
+     if (error.status === 401 || error.status === 403) {
+        this.message.alert('Your session has expired. Please login again.', 'error');
+        this.authService.removeToken();
+        sessionStorage.clear();
+        this.router.navigate(['']);
+        return error;
+    }
     return error;
   }
   private showLoader(): void {
