@@ -321,7 +321,7 @@ export class loginContentClass implements OnInit {
         this.sessionstorage.removeItem("CLI");
         // this.sessionstorage.removeItem("session_id");
         this.czentrixServices
-          .getCTILoginToken(this.userID, this.password)
+          .getCTILoginToken(this.userID, this.encryptpassword)
           .subscribe(
             (response) => {
               this.dataSettingService.loginKey = response.login_key;
