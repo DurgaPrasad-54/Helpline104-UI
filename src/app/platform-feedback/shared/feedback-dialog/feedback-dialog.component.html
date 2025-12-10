@@ -108,12 +108,12 @@
     </div>
 
     <div class="fb-actions">
-      <button
-        class="fb-btn"
-        [disabled]="submitting || formInvalidForNow()"
-        (click)="submit()"
-      >
-        {{ (current_language_set?.platform_feedback?.okay) || "Okay" }}
+      <button class="fb-btn fb-btn-cls" (click)="login()">
+        {{ current_language_set?.common?.close || "close" }}
+      </button>
+      
+      <button class="fb-btn fb-btn-ok" [disabled]="submitting || formInvalidForNow()" (click)="submit()">
+        {{ current_language_set?.platform_feedback?.okay || "Okay" }}
       </button>
     </div>
 

@@ -60,8 +60,32 @@
   
   .fb-hint { margin-top: 6px; font-size: 12px; color: #9ca3af; text-align: right; }
   
-  .fb-actions { display: flex; justify-content: center; margin-top: 18px; }
-  .fb-btn { min-width: 120px; padding: 10px 16px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer; }
+    .fb-actions {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 18px;
+    }
+  
+    .fb-btn {
+      min-width: 120px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  
+    .fb-btn-ok {
+      background: #2563eb;
+      color: #fff;
+    }
+  
+    .fb-btn-cls {
+      background: #fff;
+      color: #2563eb;
+      border-color: #2563eb;
+      border: solid 1px;
+    }
   .fb-btn[disabled] { opacity: .6; cursor: not-allowed; }
   
   .fb-foot { margin-top: 12px; text-align: center; }
