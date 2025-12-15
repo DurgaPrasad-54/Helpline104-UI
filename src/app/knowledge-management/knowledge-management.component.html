@@ -53,10 +53,7 @@
           </span>
         </div>
         <div class="clearfix"></div>
-        <!-- <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
-          <label>{{currentLanguageSet?.previousUploadedFile}} <a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank" rel="noopener noreferrer">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
-        </div> -->
-
+       
         <div class="col-xs-12 col-sm-12 form-group" *ngIf="subcategoryOBJ?.fileManger && subcategoryOBJ.fileManger.length > 0">
           <label>{{currentLanguageSet?.previousUploadedFiles}} </label>
         
