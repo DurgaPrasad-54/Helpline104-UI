@@ -327,4 +327,9 @@ export class KnowledgeManagementComponent implements OnInit {
     this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
+  getFileURL(fileUID: string): string {
+  // Construct URL using the fileUID
+  const baseURL = 'https://guest:guest@uatamrit.piramalswasthya.org:8084/OpenKM/Download?uuid=';
+  return baseURL + fileUID;
+}
 }

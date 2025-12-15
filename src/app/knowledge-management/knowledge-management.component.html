@@ -53,12 +53,29 @@
           </span>
         </div>
         <div class="clearfix"></div>
-        <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
+        <!-- <div class="col-xs-6 col-sm-6 form-group" *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)">
           <label>{{currentLanguageSet?.previousUploadedFile}} <a *ngIf="(subcategoryOBJ?.subCatFilePath) && (subcategoryOBJ?.subCatFilePath != null ||subcategoryOBJ?.subCatFilePath != undefined)" href="{{subcategoryOBJ?.fileURL}}" target="_blank" rel="noopener noreferrer">{{subcategoryOBJ?.fileNameWithExtension?subcategoryOBJ?.fileNameWithExtension:'-'}}</a></label>
+        </div> -->
+
+        <div class="col-xs-12 col-sm-12 form-group" *ngIf="subcategoryOBJ?.fileManger && subcategoryOBJ.fileManger.length > 0">
+          <label>{{currentLanguageSet?.previousUploadedFiles}} </label>
+        
+          <ul>
+            <li *ngFor="let file of subcategoryOBJ.fileManger">
+              <a [href]="getFileURL(file.fileUID)" target="_blank" rel="noopener noreferrer">
+                {{file.fileName}}{{file.fileExtension}}
+              </a>
+              <span class="text-muted">
+                - {{file.versionNo}} by {{file.createdBy}}
+                on {{file.createdDate | date:'medium'}}
+              </span>
+            </li>
+          </ul>
         </div>
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 pull-right">
-          <button type="submit" class="pull-right" md-raised-button color="accent" [disabled]="knowledgeForm.invalid||invalid_file_flag|| error2 || invalidFileNameFlag">{{currentLanguageSet?.save}}</button>
-
+          <button type="submit" class="pull-right" md-raised-button color="accent"
+            [disabled]="knowledgeForm.invalid||invalid_file_flag|| error2 || invalidFileNameFlag">{{currentLanguageSet?.save}}</button>
+        
         </div>
 
         <!--Comment Start Date and End Date here  -->
