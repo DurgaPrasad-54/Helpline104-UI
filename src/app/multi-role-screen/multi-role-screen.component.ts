@@ -189,7 +189,7 @@ export class MultiRoleScreenComponent implements OnInit {
         this.loginService
           .userLogout()
           .subscribe((response) => this.handleSuccess(response));
-          this.router.navigate([['/feedback'], { queryParams: { sl: '104' } }]);
+          this.router.navigate(['/feedback'], { queryParams: { sl: '104' } });
         this.authService.removeToken();
         // this.socketService.logOut();
       },
@@ -201,7 +201,7 @@ export class MultiRoleScreenComponent implements OnInit {
         this.loginService
           .userLogout()
           .subscribe((response) => this.handleSuccess(response));
-          this.router.navigate([['/feedback'], { queryParams: { sl: '104' } }]);
+          this.router.navigate(['/feedback'], { queryParams: { sl: '104' } });
         this.authService.removeToken();
         // this.socketService.logOut();
       }
