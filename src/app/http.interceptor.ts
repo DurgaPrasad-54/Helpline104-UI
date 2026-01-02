@@ -51,7 +51,7 @@ import { sessionStorageService } from "./services/sessionStorageService/session-
 export class InterceptedHttp extends Http {
   onlineFlag: boolean = true;
   count = 0;
-  dologout: any;
+  dologout: boolean = false;
 
   constructor(
     backend: ConnectionBackend,
@@ -232,6 +232,13 @@ export class InterceptedHttp extends Http {
   }
   private onError(error: any) {
     this.hideLoader();
+    if (error.status === 401 || error.status === 403) {
+            this.message.alert('Your session has expired. Please login again.', 'error');
+            this.authService.removeToken();
+            sessionStorage.clear();
+            this.router.navigate(['']);
+            return error;
+        }
     return error;
   }
   private showLoader(): void {

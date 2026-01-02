@@ -22,7 +22,7 @@
 
 
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdSelectModule } from '@angular/material';
 import { MdSnackBar } from '@angular/material';
@@ -69,7 +69,8 @@ export class KnowledgeManagementComponent implements OnInit {
   invalidFileNameFlag:boolean = false;
   constructor(private fb: FormBuilder, private _coCategoryService: CoCategoryService,
     private _dataService: dataService, private _uploadService: UploadServiceService,
-    private message: ConfirmationDialogsService,public HttpServices: HttpServices) {
+    private message: ConfirmationDialogsService,public HttpServices: HttpServices,    private cdr: ChangeDetectorRef 
+) {
     this.createForm();
   }
 
@@ -166,7 +167,7 @@ export class KnowledgeManagementComponent implements OnInit {
 
    
     if (subcategoryArr.length > 0) {
-      this.subcategoryOBJ = subcategoryArr[0];
+      this.subcategoryOBJ =  { ...subcategoryArr[0] };
     }
 
   }
@@ -302,29 +303,58 @@ export class KnowledgeManagementComponent implements OnInit {
 }
 
 
-
   // Calling service Method to call the services
-  uploadFile(uploadObj: any) {
-    this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
-      console.log('KM configuration ', response);
-      this.message.alert(this.currentLanguageSet.uploadedSuccessfully, 'success');
-      this.file = undefined;
-      this.invalidFileNameFlag=false;
-      this.error1 = false;
-      this.error2 = false;
-      this.invalid_file_flag = false;
-      this.myInputVariable.nativeElement.value = '';
-      this.knowledgeForm.reset(this.knowledgeForm.value);
-    }, (err) => {
-      // this.message.alert(JSON.parse(err._body).errorMessage, 'error');
-      this.message.alert(this.currentLanguageSet.failedToUploadFile, 'error');
-      this.myInputVariable.nativeElement.value = '';
-    })
-  }
+uploadFile(uploadObj: any) {
+  this._uploadService.uploadDocument(uploadObj).subscribe((response) => {
+    console.log('KM configuration ', response);
+    this.message.alert(this.currentLanguageSet.uploadedSuccessfully, 'success');
+    
+    // Extract the newly uploaded file from response
+    if (response && response.data && response.data.length > 0) {
+      const newFile = response.data[0]; 
+      
+      if (!this.subcategoryOBJ.fileManger) {
+        this.subcategoryOBJ.fileManger = [];
+      }
+      
+      this.subcategoryOBJ.fileManger = [newFile, ...this.subcategoryOBJ.fileManger];
+      
+      this.subcategoryOBJ.fileURL = this.getFileURL(newFile.fileUID);
+      this.subcategoryOBJ.fileNameWithExtension = newFile.fileName + newFile.fileExtension;
+      
+      console.log('File added to fileManger array:', newFile);
+        this.cdr.detectChanges();
+
+
+    }
+    
+    this.file = undefined;
+    this.invalidFileNameFlag = false;
+    this.error1 = false;
+    this.error2 = false;
+    this.invalid_file_flag = false;
+    this.myInputVariable.nativeElement.value = '';
+    
+    // Reset only the file input, keep other selections
+    this.knowledgeForm.patchValue({
+      fileInput: ''
+    });
+    
+  }, (err) => {
+    this.message.alert(this.currentLanguageSet.failedToUploadFile, 'error');
+    this.myInputVariable.nativeElement.value = '';
+  })
+}
+
   assignSelectedLanguage() {
     const getLanguageJson = new SetLanguageComponent(this.HttpServices);
     getLanguageJson.setLanguage();
     this.currentLanguageSet = getLanguageJson.currentLanguageObject;
   }
 
+  getFileURL(fileUID: string): string {
+  // Construct URL using the fileUID
+  const baseURL = 'https://guest:guest@uatamrit.piramalswasthya.org:8084/OpenKM/Download?uuid=';
+  return baseURL + fileUID;
+}
 }

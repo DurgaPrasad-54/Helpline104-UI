@@ -30,6 +30,7 @@ import "rxjs/add/operator/finally";
 import { sessionStorageService } from "app/services/sessionStorageService/session-storage.service";
 import { HttpServices } from "app/services/http-services/http_services.service";
 import { SetLanguageComponent } from "app/set-language.component";
+import { Router } from "@angular/router";
 
 // ---- Custom validators to replace Validators.min/max (not present on this Angular version)
 function minValue(min: number): ValidatorFn {
@@ -84,7 +85,8 @@ export class FeedbackDialogComponent implements OnInit {
     private fb: FormBuilder,
     private api: FeedbackService,
     private sessionStorage: sessionStorageService,
-    public httpService: HttpServices
+    public httpService: HttpServices,
+    public router: Router
   ) {}
 
   ngOnInit() {
@@ -147,6 +149,10 @@ export class FeedbackDialogComponent implements OnInit {
 
   formInvalidForNow(): boolean {
     return this.form.invalid;
+  }
+
+  login() {
+    this.router.navigate(["/"]);
   }
 
   submit() {
