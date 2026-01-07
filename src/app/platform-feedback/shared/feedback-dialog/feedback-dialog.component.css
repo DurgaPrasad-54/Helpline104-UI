@@ -1,0 +1,94 @@
+/*
+ * AMRIT – Accessible Medical Records via Integrated Technology
+ * Integrated EHR (Electronic Health Records) Solution
+ *
+ * Copyright (C) "Piramal Swasthya Management and Research Institute"
+ *
+ * This file is part of AMRIT.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see https://www.gnu.org/licenses/.
+ */
+.fb-wrap {
+    min-height: 100vh;
+    background: #f5f7fb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+  .fb-card {
+    width: min(720px, 92vw);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(16,24,40,.08);
+    padding: 28px 28px 32px;
+  }
+  
+  .fb-title { margin: 0 0 6px; font-size: 24px; line-height: 1.2; font-weight: 600; color: #111827; text-align: center; }
+  .fb-subtitle { margin: 0 0 18px; color: #6b7280; text-align: center; font-size: 14px; }
+  
+  .fb-stars { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; justify-items: center; margin: 8px 0 10px; }
+  .fb-star { display: grid; grid-template-rows: auto auto; gap: 6px; align-items: center; justify-items: center; border: none; background: transparent; cursor: pointer; }
+  .fb-star-icon { font-size: 40px; color: #dbe4ff; line-height: 1; }
+  .fb-star--active .fb-star-icon { color: #2563eb; }
+  .fb-star-text { font-size: 12px; color: #2563eb; }
+  
+  .fb-sep { border: 0; border-top: 1px solid #e5e7eb; margin: 16px 0 12px; }
+  
+  .fb-row { margin: 14px 0; }
+  .fb-label { display: block; margin-bottom: 8px; color: #374151; font-weight: 500; }
+  .fb-select {
+    width: 100%; padding: 10px 12px; border: 1px solid #e5e7eb; border-radius: 8px; background: #fff; font-size: 14px;
+  }
+  .fb-textarea {
+    width: 100%; min-height: 110px; border: 1px solid #e5e7eb; border-radius: 8px;
+    padding: 12px; resize: vertical; font-size: 14px; line-height: 1.4;
+    overflow-wrap: anywhere; word-break: break-word;    /* long text fix */
+  }
+  .fb-textarea:focus, .fb-select:focus { outline: 2px solid #93c5fd; outline-offset: 2px; }
+  
+  .fb-hint { margin-top: 6px; font-size: 12px; color: #9ca3af; text-align: right; }
+  
+    .fb-actions {
+      display: flex;
+      justify-content: space-evenly;
+      margin-top: 18px;
+    }
+  
+    .fb-btn {
+      min-width: 120px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  
+    .fb-btn-ok {
+      background: #2563eb;
+      color: #fff;
+    }
+  
+    .fb-btn-cls {
+      background: #fff;
+      color: #2563eb;
+      border-color: #2563eb;
+      border: solid 1px;
+    }
+  .fb-btn[disabled] { opacity: .6; cursor: not-allowed; }
+  
+  .fb-foot { margin-top: 12px; text-align: center; }
+  .fb-error { color: #b91c1c; }
+  .fb-success { color: #15803d; }
+  

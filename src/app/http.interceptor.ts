@@ -51,7 +51,7 @@ import { sessionStorageService } from "./services/sessionStorageService/session-
 export class InterceptedHttp extends Http {
   onlineFlag: boolean = true;
   count = 0;
-  dologout: any;
+  dologout: boolean = false;
 
   constructor(
     backend: ConnectionBackend,
@@ -72,7 +72,7 @@ export class InterceptedHttp extends Http {
     if (this.networkCheck()) {
       this.showLoader();
       return super
-        .get(URL, this.getRequestOptionArgs(options))
+        .get(URL, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -99,7 +99,7 @@ export class InterceptedHttp extends Http {
     if (this.networkCheck()) {
       this.showLoader();
       return super
-        .post(URL, body, this.getRequestOptionArgs(options))
+        .post(URL, body, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -125,7 +125,7 @@ export class InterceptedHttp extends Http {
     // url = this.updateUrl(url);
     if (this.networkCheck()) {
       return super
-        .put(url, body, this.getRequestOptionArgs(options))
+        .put(url, body, this.getRequestOptionArgs(options,url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -147,7 +147,7 @@ export class InterceptedHttp extends Http {
     // url = this.updateUrl(url);
     if (this.networkCheck()) {
       return super
-        .delete(url, this.getRequestOptionArgs(options))
+        .delete(url, this.getRequestOptionArgs(options, url))
         .catch(this.onCatch)
         .do(
           (res: Response) => {
@@ -183,7 +183,8 @@ export class InterceptedHttp extends Http {
   }
 
   private getRequestOptionArgs(
-    options?: RequestOptionsArgs
+    options?: RequestOptionsArgs,
+    url?: string
   ): RequestOptionsArgs {
     if (options == null) {
       options = new RequestOptions();
@@ -192,7 +193,6 @@ export class InterceptedHttp extends Http {
       options.headers = new Headers();
     }
     options.headers.append("Content-Type", "application/json");
-    options.headers.append("Access-Control-Allow-Origin", "*");
     options.headers.append("Authorization", this.authService.getToken());
     return options;
   }
@@ -232,6 +232,13 @@ export class InterceptedHttp extends Http {
   }
   private onError(error: any) {
     this.hideLoader();
+    if (error.status === 401 || error.status === 403) {
+            this.message.alert('Your session has expired. Please login again.', 'error');
+            this.authService.removeToken();
+            sessionStorage.clear();
+            this.router.navigate(['']);
+            return error;
+        }
     return error;
   }
   private showLoader(): void {

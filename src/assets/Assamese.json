@@ -1623,6 +1623,20 @@
     "issueWhileSchedulingAppointmnet" : "Issue While Scheduling Appointmnet",
     "callCantMarkedReferraldWithoutBeneficiarySelection" : "Call can't be marked as referral call without beneficiary selection",
     "scheduleAppointment" : "Schedule Appointment",
-    "pleaseSelectTimeSlotBetween": "Please select a time slot between 10AM to 1PM"
+    "pleaseSelectTimeSlotBetween": "Please select a time slot between 10AM to 1PM",
+    "platform_feedback": {
+      "feedback": "প্ৰতিক্ৰিয়া",
+      "weValueYourFeedback": "আপোনাৰ প্ৰতিক্ৰিয়া আমাক মূল্যবান",
+      "youHaveLoggedOut": "আপুনি সেশনৰ পৰা লগ আউট কৰিছে",
+      "subtitle": "আমাক আপোনাৰ অভিজ্ঞতা জনাওক (ঐচ্ছিক)",
+      "category": "শ্ৰেণী",
+      "selectCategory": "শ্ৰেণী নিৰ্বাচন কৰক",
+      "loggedInConsent": "গোপনীয়ভাৱে জমা দিয়ক (যদি আনচেক থাকে, তেন্তে ফ'ল'আপৰ বাবে আমি আপোনাৰ ইউজাৰ আইডি সংৰক্ষণ কৰিম)",
+      "anonymousInfo": "আপুনি লগ ইন কৰা নাই, এই প্ৰতিক্ৰিয়া গোপনীয়ভাৱে জমা হ'ব।",
+      "okay": "ঠিক আছে",
+      "thankYou": "ধন্যবাদ, আপোনাৰ প্ৰতিক্ৰিয়া আমাৰ বাবে মূল্যবান!"
+    },
+    "sessionExpiry": "আপোনাৰ ছেশ্যন অসমৰ্থ হৈছে। অনুগ্ৰহ কৰি পুনৰ লগিন কৰক।"
   }
 }
+

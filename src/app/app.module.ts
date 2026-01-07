@@ -284,7 +284,8 @@ import { ScheduleAppointmentComponent } from './schedule-appointment/schedule-ap
 import { sessionStorageService } from './services/sessionStorageService/session-storage.service';
 import { CaptchaService } from './services/captcha-service/captcha.service';
 import { CaptchaComponent } from './captcha/captcha.component';
-
+import { FeedbackPublicPageComponent } from './platform-feedback/pages/feedback-public-page/feedback-public-page-component';
+import { FeedbackModule } from './platform-feedback/feedback.module';
 
 @NgModule({
   declarations: [
@@ -340,7 +341,7 @@ import { CaptchaComponent } from './captcha/captcha.component';
     Md2Module,
     MdSnackBarModule,
     ToasterModule,
-    
+    FeedbackModule,
     //AlertModule,
     RouterModule.forRoot([
       {
@@ -461,6 +462,10 @@ import { CaptchaComponent } from './captcha/captcha.component';
         path: 'closureScreen',
         component: ClosureComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'feedback',
+        component:FeedbackPublicPageComponent
       },
       
     ]),
