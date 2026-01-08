@@ -80,7 +80,7 @@
     "protractor": "5.1.2",
     "ts-node": "3.0.4",
     "tslint": "5.2.0",
-    "typescript": "2.2.0",
+    "typescript": "^3.9.10",
     "webpack": "3.10.0",
     "xlsx": "^0.13.0"
   }
