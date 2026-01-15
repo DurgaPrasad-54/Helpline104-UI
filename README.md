@@ -99,6 +99,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Documentation
 
-Detailed technical documentation for this service is available on DeepWiki:
-
-- https://deepwiki.com/PSMRI/Helpline104-UI
+[DeepWiki - Helpline104 UI](https://deepwiki.com/PSMRI/Helpline104-UI)
