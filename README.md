@@ -1,6 +1,6 @@
 # AMRIT - Helpline104 Service
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ![branch parameter](https://github.com/PSMRI/Helpline104-UI/actions/workflows/sast-and-package.yml/badge.svg)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![DeepWiki](https://img.shields.io/badge/DeepWiki-PSMRI%2FHelpline104--UI-blue)](https://deepwiki.com/PSMRI/Helpline104-UI)
 
 The AMRIT Helpline104 service aims to provide comprehensive assistance to individuals in need. It offers a range of services such as medical advice, counseling, grievance resolution, and support during health emergencies. The helpline is designed to cater to the specific needs of callers, ensuring they receive the appropriate assistance.
 
@@ -96,7 +96,3 @@ Before running the tests make sure you are serving the app via `ng serve`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 -->
-
-## Documentation
-
-[DeepWiki - Helpline104 UI](https://deepwiki.com/PSMRI/Helpline104-UI)
